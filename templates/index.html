@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Prompt Combiner</h1>
-    <form method="post">
+    <form id="promptForm">
         <label for="prompt">Prompt:</label><br>
         <textarea id="prompt" name="prompt" rows="4" cols="50"></textarea><br><br>
 
@@ -17,37 +17,47 @@
         <label for="response_b">Response B:</label><br>
         <textarea id="response_b" name="response_b" rows="4" cols="50"></textarea><br><br>
 
-        <button type="submit">Combine</button>
+        <button type="button" onclick="combinePrompt()">Combine</button>
         <button type="button" onclick="copyCombinedPrompt()">Copy Prompt</button>
     </form>
 
-    {% if combined_prompt %}
     <h2>Combined Prompt:</h2>
-    <pre>{{ combined_prompt }}</pre>
-    {% endif %}
+    <pre id="combinedPrompt"></pre>
 
     <script>
+        const prompt = "Prompt:";
+        const responseA = "Response A:";
+        const responseB = "Response B:";
+        const instructionPrompt = `
+response grading scale: {Amazing, Good, Okay, Bad, Horrible}
+also give me answer for Rationale for Rating for each student with 1 sentence { }
+
+2. Compare between Student A and B to select options from {
+1 - A MUCH BETTER than B,
+2 - A BETTER than B,
+3 - A SLIGHTLY BETTER than B,
+4 - A SAME AS B,
+5 -B SLIGHTLY BETTER than A,
+6 - B BETTER than A,
+7 - B MUCH BETTER than A
+}
+also give me Rationale like comparing between A and B
+`;
+
+        function combinePrompt() {
+            const input1 = document.getElementById('prompt').value;
+            const input2 = document.getElementById('response_a').value;
+            const input3 = document.getElementById('response_b').value;
+
+            const combinedPrompt = `${prompt} ${input1}\n${responseA} ${input2}\n${responseB} ${input3}\n${instructionPrompt}`;
+            document.getElementById('combinedPrompt').textContent = combinedPrompt;
+        }
+
         function copyCombinedPrompt() {
-            // Get the combined prompt element
-            var combinedPrompt = document.querySelector('pre');
-
-            // Select the text inside the pre element
-            var textToCopy = combinedPrompt.textContent;
-
-            // Create a temporary text area for copying
-            var tempTextArea = document.createElement('textarea');
-            tempTextArea.value = textToCopy;
-            document.body.appendChild(tempTextArea);
-
-            // Select the text area and copy the text
-            tempTextArea.select();
-            document.execCommand('copy');
-
-            // Remove the temporary text area
-            document.body.removeChild(tempTextArea);
-
-            // Display a success message (optional)
-            alert('Combined prompt copied to clipboard!');
+            const combinedPrompt = document.getElementById('combinedPrompt').textContent;
+            navigator.clipboard.writeText(combinedPrompt).then(() => {
+                alert('Combined prompt copied to clipboard!');
+            });
         }
     </script>
 </body>
