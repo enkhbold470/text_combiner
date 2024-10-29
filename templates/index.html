@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Combiner</title>
+</head>
+<body>
+    <h1>Prompt Combiner</h1>
+    <form method="post">
+        <label for="prompt">Prompt:</label><br>
+        <textarea id="prompt" name="prompt" rows="4" cols="50"></textarea><br><br>
+
+        <label for="response_a">Response A:</label><br>
+        <textarea id="response_a" name="response_a" rows="4" cols="50"></textarea><br><br>
+
+        <label for="response_b">Response B:</label><br>
+        <textarea id="response_b" name="response_b" rows="4" cols="50"></textarea><br><br>
+
+        <button type="submit">Combine</button>
+        <button type="button" onclick="copyCombinedPrompt()">Copy Prompt</button>
+    </form>
+
+    {% if combined_prompt %}
+    <h2>Combined Prompt:</h2>
+    <pre>{{ combined_prompt }}</pre>
+    {% endif %}
+
+    <script>
+        function copyCombinedPrompt() {
+            // Get the combined prompt element
+            var combinedPrompt = document.querySelector('pre');
+
+            // Select the text inside the pre element
+            var textToCopy = combinedPrompt.textContent;
+
+            // Create a temporary text area for copying
+            var tempTextArea = document.createElement('textarea');
+            tempTextArea.value = textToCopy;
+            document.body.appendChild(tempTextArea);
+
+            // Select the text area and copy the text
+            tempTextArea.select();
+            document.execCommand('copy');
+
+            // Remove the temporary text area
+            document.body.removeChild(tempTextArea);
+
+            // Display a success message (optional)
+            alert('Combined prompt copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
