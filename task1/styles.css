@@ -58,3 +58,12 @@ button:active {
     background-color: #4338ca; /* Even darker purple for active state */
     transform: translateY(0); /* Reset lift on click */
 }
+
+#copiedText{
+    /* display: none; */
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    background-color: #d1fae5; /* Light green background */
+    color: #065f46; /* Dark green text */
+}

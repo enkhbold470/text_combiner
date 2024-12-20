@@ -9,10 +9,14 @@ function combinePrompt() {
     document.getElementById('combinedPrompt').textContent = combinedPrompt;
 }
 
+const copiedText = document.getElementById('copiedText');
 function copyCombinedPrompt() {
     const combinedPrompt = document.getElementById('combinedPrompt').textContent;
     navigator.clipboard.writeText(combinedPrompt).then(() => {
-        alert('Combined prompt copied to clipboard!');
+        copiedText.textContent = 'Combined prompt copied to clipboard!';
+        setTimeout(() => {
+            copiedText.textContent = '';
+        }, 1000);
     }).catch(() => {
         alert('Failed to copy text.');
     });
