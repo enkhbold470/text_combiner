@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Combiner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Text Combiner</h1>
+    <p>Enter the following details to combine your prompts and responses:</p>
+
+    <label for="userPrompt">USER: Prompt</label>
+    <textarea id="userPrompt" placeholder="Enter USER: Prompt here"></textarea>
+
+    <label for="formattingConstraints">MODEL: Formatting Constraints (Prompt formatting info which might be incomplete)</label>
+    <textarea id="formattingConstraints" placeholder="Enter MODEL: Formatting Constraints here"></textarea>
+
+    <label for="modelResponse">MODEL: Response</label>
+    <textarea id="modelResponse" placeholder="Enter MODEL: Response here"></textarea>
+
+    <label for="formattingNotFollowed">MODEL: Formatting Not Followed Reason</label>
+    <textarea id="formattingNotFollowed" placeholder="Enter MODEL: Formatting Not Followed Reason here"></textarea>
+
+    <label for="instructionPrompt">Instruction</label>
+    <textarea id="instructionPrompt">
+for USER: prompt
+"MODEL: formatting constraints
+(Prompt formatting info which might be incomplete)"
+give me "formatting constraints good?
+(Prompt formatting instructions good?)": choose from yes or no, if you choose no explain why on rationale
+
+rationale: []
+
+for model MODEL: response and MODEL: formatting_not_followed_reason
+
+choose from "formatting violated? from yes or no, if yes please explain on rationale
+    </textarea>
+
+    <button onclick="combinePrompt()">Combine Texts</button>
+    <button onclick="copyCombinedPrompt()">Copy Combined Text</button>
+
+    <h3>Combined Text:</h3>
+    <div id="combinedPrompt"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
